@@ -205,3 +205,112 @@ void DoublyLinkedList::print_reverse() {
     } 
     std::cout << std::endl;
 }
+
+// Public quicksort function that calls recursive function and returns head
+DLLNode* DoublyLinkedList::quick_sort() {
+    //If element is size one or lower no sorting needs to be done
+    if (head == nullptr || head->next == nullptr) { 
+        return head;
+    }
+    //Find tail node
+    tail = head;
+    while (tail->next != nullptr) {
+        tail = tail->next;
+    }
+    head = quick_sort(head, tail);
+    return head;
+}
+
+//Helper function to split the list into less than or greater than pivot
+DLLNode* DoublyLinkedList::partition(DLLNode* head, DLLNode* tail) {
+    //Set first element as pivot
+    int pivot_value = head->value;
+
+    //Pointer to place greater elements
+    DLLNode* k = tail;
+    for (DLLNode* i = tail; i != head; i = i->prev) {
+        // If curr element is greateer than pivot, swap with element before k
+        if (i->value > pivot_value) {
+            std::swap(i->value, k->prev->value);
+        }
+    }
+    std::swap(head->value, k->value);
+    // Pivot element index is end and is at its sorted position
+    // return pivot element
+    return k;
+}
+
+DLLNode* DoublyLinkedList::quick_sort(DLLNode* head, DLLNode* tail) {
+    // Ensure list has more than one element
+    if (head != nullptr  && tail != nullptr && tail != head) {
+        // Find the pivot
+        DLLNode* pivot = partition(head, tail);
+
+        //Recursively sort left half
+        if (pivot->prev != nullptr) {
+            quick_sort(head, pivot->prev);
+        }
+
+        //Recursively sort right half
+        if (pivot->next != nullptr) {
+            quick_sort(pivot->next, tail);
+        }
+    }
+    // Ensure head pointer is correct
+    while (head != nullptr && head->prev != nullptr) {
+        head = head->prev;
+    }
+    return head;
+}
+
+DLLNode* DoublyLinkedList::insertion_sort(DLLNode* head) {
+    if (head == nullptr || head->next == nullptr) {
+        return head;
+    }
+    DLLNode* sorted = nullptr;
+    DLLNode* curr = head;
+
+    // Traverse the list to sort each element
+    while (curr != nullptr) {
+        //Store next node to process
+        DLLNode* next = curr->next;
+
+        // Insert curr into sorted list
+        if (sorted == nullptr || sorted->value >= curr->value) {
+            curr->next = sorted;
+
+            // If sorted list is not empty, set its prev
+            if (sorted != nullptr) {
+                sorted->prev = curr;
+            }
+
+            // Update sorted to the new head
+            sorted = curr;
+            sorted->prev = nullptr;
+        } else {
+            // Pointer to traverse sorted part
+            DLLNode* curr_sorted = sorted;
+
+            // Find correct position to insert at
+            while (curr_sorted->next != nullptr && curr_sorted->next->value < curr->value) {
+                curr_sorted = curr_sorted->next;
+            }
+
+            // Insert curr after curr_sorted
+            curr->next = curr_sorted->next;
+
+            // Set prev if curr is not inserted at the end
+            if (curr_sorted->next != nullptr) {
+                curr_sorted->next->prev = curr;
+            }
+
+            // Set next of current_sorted to curr
+            curr_sorted->next = curr;
+            curr->prev = curr_sorted; 
+        }
+
+        // Move on to next node in the unsorted list
+        curr = next;
+    }
+    return sorted;
+}
