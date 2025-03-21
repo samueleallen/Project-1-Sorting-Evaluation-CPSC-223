@@ -206,6 +206,14 @@ void DoublyLinkedList::print_reverse() {
     std::cout << std::endl;
 }
 
+// Helper function to swap the values of two nodes
+void DoublyLinkedList::swap(DLLNode* a, DLLNode* b) {
+    // Swap the values of each node
+    int temp = a->value;
+    a->value = b->value;
+    b->value = temp;
+}
+
 // Public quicksort function that calls recursive function and returns head
 DLLNode* DoublyLinkedList::quick_sort() {
     //If element is size one or lower no sorting needs to be done
@@ -221,41 +229,46 @@ DLLNode* DoublyLinkedList::quick_sort() {
     return head;
 }
 
-//Helper function to split the list into less than or greater than pivot
-DLLNode* DoublyLinkedList::partition(DLLNode* head, DLLNode* tail) {
-    //Set first element as pivot
-    int pivot_value = head->value;
-
-    //Pointer to place greater elements
-    DLLNode* k = tail;
-    for (DLLNode* i = tail; i != head; i = i->prev) {
-        // If curr element is greateer than pivot, swap with element before k
-        if (i->value > pivot_value) {
-            std::swap(i->value, k->prev->value);
+//Helper function to split the list into nodes to the left of the pivot if less than
+//and values to the right of the pivot node if greater than the pivot
+DLLNode* DoublyLinkedList::partition(DLLNode* low, DLLNode* high) {
+    // Choose the first element as pivot
+    int pivot_value = low->value;
+    
+    // Pointer to place smaller nodes
+    DLLNode* i = low;  
+    
+    // Traverse from low node to high node
+    for (DLLNode* j = low->next; j != nullptr && j != high->next; j = j->next) {
+        // If current nodes data is less than or equal to pivot
+        if (j->value <= pivot_value) {
+            // Move i forward and swap values
+            i = i->next;  
+            swap(i, j); 
         }
     }
-    std::swap(head->value, k->value);
-    // Pivot element index is end and is at its sorted position
-    // return pivot element
-    return k;
+
+    // Place pivot in its final sorted position
+    // and return pivot position
+    swap(low, i);
+    return i;  
 }
 
 DLLNode* DoublyLinkedList::quick_sort(DLLNode* head, DLLNode* tail) {
     // Ensure list has more than one element
-    if (head != nullptr  && tail != nullptr && tail != head) {
+    if (head != nullptr && tail != nullptr && tail != head) {
         // Find the pivot
         DLLNode* pivot = partition(head, tail);
-
-        //Recursively sort left half
-        if (pivot->prev != nullptr) {
+        //Recursively sort left half from head up to the pivot->prev
+        if (pivot->prev != nullptr && head != pivot) {
             quick_sort(head, pivot->prev);
         }
-
-        //Recursively sort right half
-        if (pivot->next != nullptr) {
+        //Recursively sort right half from pivot->next to tail
+        if (pivot->next != nullptr && pivot != tail) {
             quick_sort(pivot->next, tail);
         }
     }
+
     // Ensure head pointer is correct
     while (head != nullptr && head->prev != nullptr) {
         head = head->prev;

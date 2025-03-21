@@ -33,6 +33,7 @@ class DoublyLinkedList {
         bool remove_value(int v);
         void print();
         void print_reverse();
+        void swap(DLLNode* a, DLLNode* b);
         DLLNode* quick_sort();
         DLLNode* partition(DLLNode* head, DLLNode* tail);
         DLLNode* insertion_sort(DLLNode* head);

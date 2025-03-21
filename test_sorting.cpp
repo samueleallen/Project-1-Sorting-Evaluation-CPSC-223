@@ -31,31 +31,31 @@ bool test_quick_sort_dll() {
     assert(is_sorted(l2.get_head()));
 
     // Already sorted list
-    // l3.push_front(5);
-    // l3.push_front(4);
-    // l3.push_front(3);
-    // l3.push_front(2);
-    // l3.push_front(1);
-    // l3.quick_sort();
-    // assert(is_sorted(l3.get_head()));
+    l3.push_front(5);
+    l3.push_front(4);
+    l3.push_front(3);
+    l3.push_front(2);
+    l3.push_front(1);
+    l3.quick_sort();
+    assert(is_sorted(l3.get_head()));
 
     // Unordered list
-    // l3.push_front(10);
-    // l3.push_front(5);
-    // l3.push_front(13);
-    // l3.push_front(17);
-    // l3.push_front(11);
-    // l3.quick_sort();
-    // assert(is_sorted(l3.get_head()));
+    l3.push_front(10);
+    l3.push_front(5);
+    l3.push_front(13);
+    l3.push_front(17);
+    l3.push_front(11);
+    l3.quick_sort();
+    assert(is_sorted(l3.get_head()));
 
     // // List with duplicate numbers
-    // l3.push_front(10);
-    // l3.push_front(10);
-    // l3.push_front(11);
-    // l3.push_front(11);
-    // l3.push_front(11);
-    // l3.quick_sort();
-    // assert(is_sorted(l3.get_head()));
+    l3.push_front(10);
+    l3.push_front(10);
+    l3.push_front(11);
+    l3.push_front(11);
+    l3.push_front(11);
+    l3.quick_sort();
+    assert(is_sorted(l3.get_head()));
 
     return true;
 }
