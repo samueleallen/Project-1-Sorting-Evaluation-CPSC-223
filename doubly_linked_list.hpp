@@ -17,6 +17,7 @@ class DoublyLinkedList {
     private: 
         DLLNode* head;
         DLLNode* tail;
+        DLLNode* merge_sort(DLLNode* head);
         DLLNode* quick_sort(DLLNode* head, DLLNode* tail);
 
     public:
@@ -34,6 +35,9 @@ class DoublyLinkedList {
         void print();
         void print_reverse();
         void swap(DLLNode* a, DLLNode* b);
+        DLLNode* seperate(DLLNode* head);
+        DLLNode* merge_sort();
+        DLLNode* merge(DLLNode* first, DLLNode* second);
         DLLNode* quick_sort();
         DLLNode* partition(DLLNode* head, DLLNode* tail);
         DLLNode* insertion_sort(DLLNode* head);
