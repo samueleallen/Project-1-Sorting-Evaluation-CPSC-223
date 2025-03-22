@@ -205,7 +205,58 @@ void DoublyLinkedList::print_reverse() {
     } 
     std::cout << std::endl;
 }
+DLLNode* DoublyLinkedList::merge(DLLNode* first, DLLNode* second){
+    // Cases for if one or both of the sublists are empty
+    if(second == nullptr && first == nullptr){return nullptr;}
+    if(first == nullptr){return second;} 
+    if(second == nullptr){return first;}
 
+    if(first->value <= second->value){
+        first->next = merge(first->next, second);              //recursively call merge on the second value of the first sublist
+        if(first->next != nullptr){first->next->prev = first;}     // prev pointer fix
+        first->prev = nullptr;                                     // prev pointer fix
+        return first;
+
+    }else{
+        second->next = merge(first, second->next);          // recursively call merge but for the second value of the second sublist
+        if(second->next){ second->next->prev = nullptr;}          // prev pointer fix
+        second->prev = nullptr;                                   // prev pointer fix
+        return second;
+    }
+
+
+
+}
+DLLNode* DoublyLinkedList::seperate(DLLNode* head){
+        DLLNode* temp = head->next;  // seperate the first link from the linked list inorder to then be merged
+        head->next = nullptr;
+    if(temp!= nullptr) { temp->prev = nullptr; }
+        return temp;
+
+}
+DLLNode* DoublyLinkedList::merge_sort(DLLNode* head){
+
+    if (head == nullptr || head->next == nullptr) { // base case for a single or empty list
+        return head;
+    }
+
+        DLLNode* second = seperate(head); // create a new sublist to seperate for merge sort
+
+        head = merge_sort(head);           // recursively seperate the first sublist
+        second = merge_sort(second);       // recursively seperate the second sublist
+
+        return merge(head, second);    // merge the sublists
+    }
+
+
+    
+
+DLLNode* DoublyLinkedList::merge_sort(){
+    head = merge_sort(head);
+    return head;
+
+    
+}
 // Helper function to swap the values of two nodes
 void DoublyLinkedList::swap(DLLNode* a, DLLNode* b) {
     // Swap the values of each node
