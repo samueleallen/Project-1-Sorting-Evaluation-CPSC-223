@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cassert>
+#include <vector>
 #include "doubly_linked_list.hpp"
+#include "vector_sorter.hpp"
 
 bool is_sorted(DLLNode* head) {
     // Base case: If list is size one or zero
@@ -150,7 +152,127 @@ bool test_insertion_sort_dll() {
     return true;
 }
 
+bool test_quick_sort() {
+    // test cases: empty, one element, unsorted, sorted, reverse order, duplicates
+    VectorSorter v1, v2, v3, v4, v5, v6;
+
+    // empty case
+    std::vector<int> vec1;
+    assert(vec1.empty());
+
+    // one element
+    std::vector<int> vec2 = {5};
+    v2.quick_sort(vec2, 0, 0);
+
+    assert(vec2[0] == 5);
+
+    // unsorted
+    std::vector<int> vec3 = {5,10,0};
+
+    assert(vec3[0] == 0);
+    assert(vec3[1] == 5);
+    assert(vec3[2] == 10);
+
+    // sorted
+    std::vector<int> vec4 = {5,10,15,20};
+    v4.quick_sort(vec4, 0, vec4.size()-1);
+    
+    assert(vec4[0] == 5);
+    assert(vec4[1] == 10);
+    assert(vec4[2] == 15);
+    assert(vec4[3] == 20);
+
+    // reverse order
+    std::vector<int> vec5 = {25,20,10,5,0};
+    v5.quick_sort(vec5, 0, vec5.size()-1);
+    
+    assert(vec5[0] == 0);
+    assert(vec5[1] == 5);
+    assert(vec5[2] == 10);
+    assert(vec5[3] == 20);
+    assert(vec5[4] == 25);
+
+    // duplicates
+    std::vector<int> vec6 = {25,20,10,5,10,20};
+    v6.quick_sort(vec6, 0, vec6.size()-1);
+    
+    assert(vec6[0] == 5);
+    assert(vec6[1] == 10);
+    assert(vec6[2] == 10);
+    assert(vec6[3] == 20);
+    assert(vec6[4] == 20);
+    assert(vec6[5] == 25);
+
+    return true;
+}
+
+bool test_insertion_sort() {
+    // test cases: empty, one element, unsorted, sorted, reverse order, duplicates
+    VectorSorter v1, v2, v3, v4, v5, v6;
+
+    // empty
+    std::vector<int> vec1;
+    v1.insertion_sort(vec1, vec1.size());
+
+    assert(vec1.empty());
+
+    // one element
+    std::vector<int> vec2 = {5};
+    v2.insertion_sort(vec2, vec2.size());
+
+    assert(vec2.size() == 1);
+    assert(vec2[0] == 5);
+
+    // unsorted
+    std::vector<int> vec3 = {5,0,10,25};
+    v3.insertion_sort(vec3, vec3.size());
+
+    assert(vec3.size() == 4);
+    assert(vec3[0] == 0);
+    assert(vec3[1] == 5);
+    assert(vec3[2] == 10);
+    assert(vec3[3] == 25);
+
+    // sorted
+    std::vector<int> vec4 = {0,10,20,25,30,45};
+    v3.insertion_sort(vec4, vec4.size());
+
+    assert(vec4.size() == 6);
+    assert(vec4[0] == 0);
+    assert(vec4[1] == 10);
+    assert(vec4[2] == 20);
+    assert(vec4[3] == 25);
+    assert(vec4[4] == 30);
+    assert(vec4[5] == 45);
+
+    // reverse order
+    std::vector<int> vec5 = {30,20,10,0};
+    v3.insertion_sort(vec5, vec5.size());
+
+    assert(vec5.size() == 4);
+    assert(vec5[0] == 0);
+    assert(vec5[1] == 10);
+    assert(vec5[2] == 20);
+    assert(vec5[3] == 30);
+
+    // duplicates
+    std::vector<int> vec6 = {30,20,10,0,20};
+    v3.insertion_sort(vec6, vec6.size());
+
+    assert(vec6.size() == 5);
+    assert(vec6[0] == 0);
+    assert(vec6[1] == 10);
+    assert(vec6[2] == 20);
+    assert(vec6[3] == 20);
+    assert(vec6[4] == 30);
+
+    return true;
+}
+
 int main() {
     std::cout << "Quick Sort Test: " <<(test_quick_sort_dll() ? "Passed" : "Failed") << std::endl;
     std::cout << "Insertion Sort Test: " <<(test_insertion_sort_dll() ? "Passed" : "Failed") << std::endl;
+
+    std::cout << "Test quick sort: " <<(test_quick_sort() ? "Passed" : "Failed") << std::endl;
+    std::cout << "Test insertion sort: " << (test_insertion_sort() ? "Passed" : "Failed") << std::endl;
 }
