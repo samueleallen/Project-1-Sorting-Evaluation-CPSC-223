@@ -25,7 +25,7 @@ public:
     void merge_comparison();
     void quick_comparison();
     void insertion_comparison();
-    void evaulate();
+    void evaluate();
     Evaluator();
     
 };
