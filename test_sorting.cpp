@@ -153,6 +153,7 @@ bool test_insertion_sort_dll() {
 }
 
 bool test_quick_sort_vec() {
+bool test_quick_sort_vec() {
     // test cases: empty, one element, unsorted, sorted, reverse order, duplicates
     VectorSorter v1, v2, v3, v4, v5, v6;
 
@@ -168,6 +169,7 @@ bool test_quick_sort_vec() {
 
     // unsorted
     std::vector<int> vec3 = {5,10,0};
+    v3.quick_sort(vec3, 0, vec3.size()-1);
     v3.quick_sort(vec3, 0, vec3.size()-1);
 
     assert(vec3[0] == 0);
@@ -207,6 +209,7 @@ bool test_quick_sort_vec() {
     return true;
 }
 
+bool test_insertion_sort_vec() {
 bool test_insertion_sort_vec() {
     // test cases: empty, one element, unsorted, sorted, reverse order, duplicates
     VectorSorter v1, v2, v3, v4, v5, v6;
