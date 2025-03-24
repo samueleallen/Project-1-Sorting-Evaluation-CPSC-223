@@ -168,6 +168,7 @@ bool test_quick_sort() {
 
     // unsorted
     std::vector<int> vec3 = {5,10,0};
+    v3.quick_sort(vec3, 0, vec3.size()-1);
 
     assert(vec3[0] == 0);
     assert(vec3[1] == 5);
