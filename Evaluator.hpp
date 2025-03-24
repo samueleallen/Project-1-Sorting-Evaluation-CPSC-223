@@ -9,7 +9,6 @@ class Evaluator {
 private:
     struct Timer {
         // Struct that holds time for each implementation of the sort
-        // Maybe consider including which eval case it is in the struct with a new variable? I dont really know  -Sam
         double dll_time;
         double vector_time;
     };
@@ -20,15 +19,18 @@ private:
     std::vector<Timer> insertion_results;
     
 public:
-    const std::vector<std::vector<int>>& getTestCases() const;
     void ingest(const std::string& filename);
     void merge_comparison();
     void quick_comparison();
     void insertion_comparison();
     void evaluate();
     Evaluator();
-    
-};
+    const std::vector<std::vector<int>>& get_test_cases() const {return test_cases;};
+    const std::vector<Timer>& get_merge_results() const {return merge_results;};
+    const std::vector<Timer>& get_quick_results() const {return quick_results;};
+    const std::vector<Timer>& get_insertion_results() const {return insertion_results;};
+    void set_test_cases(const std::vector<std::vector<int>>& new_test_cases) {test_cases = new_test_cases;};
 
+};
 
 #endif 

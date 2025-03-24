@@ -16,11 +16,6 @@ using std::chrono::milliseconds;
 
 Evaluator::Evaluator() {}
 
-// Getter function to access the test_cases
-const std::vector<std::vector<int>>& Evaluator::getTestCases() const {
-    return test_cases;
-}
-
 /*
  Ingests the contents of the file and stores it into test_cases 2D vector. 
  First row of test_cases holds integers of 4-digits
@@ -78,9 +73,6 @@ void Evaluator::ingest(const std::string& filename) {
 }
 
 void Evaluator::quick_comparison() {
-    /*
-    For some reason we dont actually make it to the end of the function call. Need to fix.
-    */
     if (test_cases.empty()) {
         std::cout << "Error: test cases vector is empty";
         return;
@@ -122,28 +114,121 @@ void Evaluator::quick_comparison() {
 
         // Store milliseconds into quick_results array
         quick_results[i].vector_time = ms_double_quicksort.count();
-
-        std::cout << "Group of " << num_of_digits << " Digits: DLL time = " << quick_results[i].dll_time << " ms, Vector time = " << quick_results[i].vector_time << " ms\n";
-
-        std::cout << "Got to end of loop " << i << std::endl;
-        if (i == 2) {
-            std::cout << "Got to end of comparisons " << std::endl;
-            break;
-        }
     }
-    std::cout << "before return is called"; // Note this isnt getting called which indicates some sort of error in the function.
+    return;
+}
+
+void Evaluator::insertion_comparison() {
+    /*
+    Function to compare the results of insertion sort on a dll vs vector
+    */
+    if (test_cases.empty()) {
+        std::cout << "Error: test cases vector is empty";
+        return;
+    }
+    
+    // Resize quick_results vector to same as test_cases
+    insertion_results.resize(test_cases.size());
+
+    // For loop goes through each testing block/group
+    for (int i = 0; i < 3; ++i) {
+        int num_of_digits = i+4; // starts at 4 digits, goes to six
+
+        // DLL quick sort
+        DoublyLinkedList dll;
+        // Push back each number in our test_cases row.
+        for (int num : test_cases[i]) {
+            dll.push_back(num);
+        }
+
+        // Get times before and after insertion_sort call to measure how long it took
+        auto dll_start = std::chrono::high_resolution_clock::now();
+        dll.insertion_sort(dll.get_head());
+        auto dll_end = std::chrono::high_resolution_clock::now();
+
+        // Get number of ms as a double
+        duration<double, std::milli> ms_double = dll_end - dll_start;
+
+        // Store milliseconds into insertion_results array
+        insertion_results[i].dll_time = ms_double.count();
+
+        // Vector insertion sort
+        std::vector<int> v = test_cases[i];
+        auto v_start = std::chrono::high_resolution_clock::now();
+        VectorSorter::insertion_sort(v, v.size());
+        auto v_end = std::chrono::high_resolution_clock::now();
+
+        // Get number of ms as a double
+        duration<double, std::milli> ms_double_insertion = v_end - v_start;
+
+        // Store milliseconds into insertion_results array
+        insertion_results[i].vector_time = ms_double_insertion.count();
+    }
+    return;
+}
+
+void Evaluator::merge_comparison() {
+    /*
+    Function to compare the results of merge sort on a dll vs vector
+    */
+    if (test_cases.empty()) {
+        std::cout << "Error: test cases vector is empty";
+        return;
+    }
+    
+    // Resize merge_results vector to same as test_cases
+    merge_results.resize(test_cases.size());
+
+    // For loop goes through each testing block/group
+    for (int i = 0; i < 3; ++i) {
+        int num_of_digits = i+4; // starts at 4 digits, goes to six
+
+        // DLL merge sort
+        DoublyLinkedList dll;
+        // Push back each number in our test_cases row.
+        for (int num : test_cases[i]) {
+            dll.push_back(num);
+        }
+
+        // Get times before and after merge_sort call to measure how long it took
+        auto dll_start = std::chrono::high_resolution_clock::now();
+        dll.merge_sort();
+        auto dll_end = std::chrono::high_resolution_clock::now();
+
+        // Get number of ms as a double
+        duration<double, std::milli> ms_double = dll_end - dll_start;
+
+        // Store milliseconds into merge_results array
+        merge_results[i].dll_time = ms_double.count();
+
+        // Vector merge sort
+        std::vector<int> v = test_cases[i];
+        auto v_start = std::chrono::high_resolution_clock::now();
+        VectorSorter::merge_sort(v);
+        auto v_end = std::chrono::high_resolution_clock::now();
+
+        // Get number of ms as a double
+        duration<double, std::milli> ms_double_mergesort = v_end - v_start;
+
+        // Store milliseconds into merge_results array
+        merge_results[i].vector_time = ms_double_mergesort.count();
+    }
     return;
 }
 
 void Evaluator::evaluate() {
-    std::cout << "Evaluate was called";
-}
+    /*
+    Function to pretty print a table of each of the sort results
+    */
 
-int main() {
-    Evaluator evaluator;
-    evaluator.ingest("evaluation_cases.txt");
-    evaluator.quick_comparison();
-    std::cout << "quick comparison finished\n";
-    evaluator.evaluate();
+    // Print headers
+    std::cout << std::left << std::setw(20) << "Algorithm" << std::setw(20) << "Number of Digits" << std::setw(20) << "DLL TIme (ms)" << std::setw(20) << "Vector Time (ms)\n" << std::string(85, '-') << std::endl;
+    // Print rows
+    for (int i = 0; i < 3; ++i) {
+        std::cout << std::setw(20) << "Quick Sort: " << std::setw(20) << i+4 << std::setw(20) << quick_results[i].dll_time << std::setw(20) << quick_results[i].vector_time << std::endl;
+        std::cout << std::setw(20) << "Insertion Sort: " << std::setw(20) << i+4 << std::setw(20) << insertion_results[i].dll_time << std::setw(20) << insertion_results[i].vector_time << std::endl;
+        std::cout << std::setw(20) << "Merge Sort: " << std::setw(20) << i+4 << std::setw(20) << merge_results[i].dll_time << std::setw(20) << merge_results[i].vector_time << std::endl;
+    }
+    std::cout << std::left << std::string(85, '-') << "\n";
 }
     

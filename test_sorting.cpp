@@ -340,7 +340,7 @@ int main() {
     std::cout << "Insertion Sort Test (DLL): " <<(test_insertion_sort_dll() ? "Passed" : "Failed") << std::endl;
     std::cout << "Merge Sort Test (DLL): " <<(test_merge_sort_dll() ? "Passed" : "Failed") << std::endl;
 
-    std::cout << "Quick Sort Test (VEC): " <<(test_quick_sort_vec() ? "Passed" : "Failed") << std::endl;
-    std::cout << "Insertion Sort Test (VEC): " << (test_insertion_sort_vec() ? "Passed" : "Failed") << std::endl;
+    std::cout << "Test quick sort (VEC): " <<(test_quick_sort_vec() ? "Passed" : "Failed") << std::endl;
+    std::cout << "Test insertion sort (VEC): " << (test_insertion_sort_vec() ? "Passed" : "Failed") << std::endl;
     std::cout << "Merge Sort Test (VEC): " <<(test_merge_sort_vec() ? "Passed" : "Failed") << std::endl;
 }
