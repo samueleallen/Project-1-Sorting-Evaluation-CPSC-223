@@ -152,7 +152,7 @@ bool test_insertion_sort_dll() {
     return true;
 }
 
-bool test_quick_sort() {
+bool test_quick_sort_vec() {
     // test cases: empty, one element, unsorted, sorted, reverse order, duplicates
     VectorSorter v1, v2, v3, v4, v5, v6;
 
@@ -207,7 +207,7 @@ bool test_quick_sort() {
     return true;
 }
 
-bool test_insertion_sort() {
+bool test_insertion_sort_vec() {
     // test cases: empty, one element, unsorted, sorted, reverse order, duplicates
     VectorSorter v1, v2, v3, v4, v5, v6;
 
@@ -236,7 +236,7 @@ bool test_insertion_sort() {
 
     // sorted
     std::vector<int> vec4 = {0,10,20,25,30,45};
-    v3.insertion_sort(vec4, vec4.size());
+    v4.insertion_sort(vec4, vec4.size());
 
     assert(vec4.size() == 6);
     assert(vec4[0] == 0);
@@ -248,7 +248,7 @@ bool test_insertion_sort() {
 
     // reverse order
     std::vector<int> vec5 = {30,20,10,0};
-    v3.insertion_sort(vec5, vec5.size());
+    v5.insertion_sort(vec5, vec5.size());
 
     assert(vec5.size() == 4);
     assert(vec5[0] == 0);
@@ -258,7 +258,7 @@ bool test_insertion_sort() {
 
     // duplicates
     std::vector<int> vec6 = {30,20,10,0,20};
-    v3.insertion_sort(vec6, vec6.size());
+    v6.insertion_sort(vec6, vec6.size());
 
     assert(vec6.size() == 5);
     assert(vec6[0] == 0);
@@ -270,10 +270,75 @@ bool test_insertion_sort() {
     return true;
 }
 
-int main() {
-    std::cout << "Quick Sort Test: " <<(test_quick_sort_dll() ? "Passed" : "Failed") << std::endl;
-    std::cout << "Insertion Sort Test: " <<(test_insertion_sort_dll() ? "Passed" : "Failed") << std::endl;
 
-    std::cout << "Test quick sort: " <<(test_quick_sort() ? "Passed" : "Failed") << std::endl;
-    std::cout << "Test insertion sort: " << (test_insertion_sort() ? "Passed" : "Failed") << std::endl;
+bool test_merge_sort_vec(){
+    // test cases: empty, one element, unsorted, sorted, reverse order, duplicates
+    VectorSorter v1, v2, v3, v4, v5, v6;
+
+    // empty
+    std::vector<int> vec1;
+    v1.merge_sort(vec1);
+
+    assert(vec1.empty());
+
+    // one element
+    std::vector<int> vec2 = {5};
+    v2.merge_sort(vec2);
+
+    assert(vec2.size() == 1);
+    assert(vec2[0] == 5);
+
+    // unsorted
+    std::vector<int> vec3 = {5,0,10,25};
+    v3.merge_sort(vec3);
+
+    assert(vec3.size() == 4);
+    assert(vec3[0] == 0);
+    assert(vec3[1] == 5);
+    assert(vec3[2] == 10);
+    assert(vec3[3] == 25);
+
+    // sorted
+    std::vector<int> vec4 = {0,10,20,25,30,45};
+    v4.merge_sort(vec4);
+    
+    assert(vec4.size() == 6);
+    assert(vec4[0] == 0);
+    assert(vec4[1] == 10);
+    assert(vec4[2] == 20);
+    assert(vec4[3] == 25);
+    assert(vec4[4] == 30);
+    assert(vec4[5] == 45);
+
+    // reverse order
+    std::vector<int> vec5 = {30,20,10,0};
+    v5.merge_sort(vec5);
+
+    assert(vec5.size() == 4);
+    assert(vec5[0] == 0);
+    assert(vec5[1] == 10);
+    assert(vec5[2] == 20);
+    assert(vec5[3] == 30);
+
+    // duplicates
+    std::vector<int> vec6 = {30,20,10,0,20};
+    v6.merge_sort(vec6);
+
+    assert(vec6.size() == 5);
+    assert(vec6[0] == 0);
+    assert(vec6[1] == 10);
+    assert(vec6[2] == 20);
+    assert(vec6[3] == 20);
+    assert(vec6[4] == 30);
+
+    return true;}
+
+int main() {
+    std::cout << "DLL Quick Sort Test: " <<(test_quick_sort_dll() ? "Passed" : "Failed") << std::endl;
+    std::cout << "DLL Insertion Sort Test: " <<(test_insertion_sort_dll() ? "Passed" : "Failed") << std::endl;
+
+    std::cout << "Vector Quick Sort Test: " <<(test_quick_sort_vec() ? "Passed" : "Failed") << std::endl;
+    std::cout << "Vector Insertion Sort Test: " << (test_insertion_sort_vec() ? "Passed" : "Failed") << std::endl;
+    std::cout << "Vector Merge Sort Test: " << (test_merge_sort_vec() ? "Passed" : "Failed") << std::endl;
 }
+ 
