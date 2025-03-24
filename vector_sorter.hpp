@@ -11,7 +11,7 @@ class VectorSorter {
 
     public:
         VectorSorter();
-        // Merge Sort
+        // Merge Sort.
         static void merge_sort(std::vector<int>& arr);
         // Other Sorts
         static void quick_sort(std::vector<int>&, int start, int end);

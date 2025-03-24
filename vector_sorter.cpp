@@ -7,7 +7,7 @@ VectorSorter::VectorSorter() {
 }
 
 int VectorSorter::partition(std::vector<int>&vec, int start, int end) {
-    // if: base cases
+    // if: base cases.
     if (vec.size() == 0 || vec.size() == 1) {
         return start;
     }

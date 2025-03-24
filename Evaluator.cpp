@@ -95,7 +95,7 @@ void Evaluator::quick_comparison() {
 
         // DLL quick sort
         DoublyLinkedList dll;
-        // Push back each number in our test_cases row
+        // Push back each number in our test_cases row.
         for (int num : test_cases[i]) {
             dll.push_back(num);
         }

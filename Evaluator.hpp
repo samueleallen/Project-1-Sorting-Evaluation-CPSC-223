@@ -14,7 +14,7 @@ private:
         double vector_time;
     };
     
-    std::vector<std::vector<int>> test_cases; // 2D vector to hold three different testing blocks
+    std::vector<std::vector<int>> test_cases; // 2D vector to hold three different testing blocks.
     std::vector<Timer> merge_results;
     std::vector<Timer> quick_results;
     std::vector<Timer> insertion_results;
