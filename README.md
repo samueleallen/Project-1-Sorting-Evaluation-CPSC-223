@@ -6,15 +6,15 @@
 
 ## Test_sorting.cpp
 To run the testing file for sorting both doubly linked lists and vectors, use the commands:  
-`g++ doubly_linked_list.cpp vector_sorter.cpp test_sorting.cpp -o test_sorting`  
+`g++ -std=c++11 doubly_linked_list.cpp vector_sorter.cpp test_sorting.cpp -o test_sorting`  
 `./test_sorting`
 
 ## Test_evaluator.cpp
 To run the testing file for evaluating our sorting functions, use the commands:  
-`g++ doubly_linked_list.cpp vector_sorter.cpp Evaluator.cpp test_evaluator.cpp -o eval_sorting`  
+`g++ -std=c++11 doubly_linked_list.cpp vector_sorter.cpp Evaluator.cpp test_evaluator.cpp -o eval_sorting`  
 `./eval_sorting`
 
 ## Main.cpp
 To run the main file, use the commands:  
-`g++ doubly_linked_list.cpp vector_sorter.cpp Evaluator.cpp main.cpp -o main`  
+`g++ -std=c++11 doubly_linked_list.cpp vector_sorter.cpp Evaluator.cpp main.cpp -o main`  
 `./main`
