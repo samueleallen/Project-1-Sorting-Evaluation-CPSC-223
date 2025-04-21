@@ -205,43 +205,55 @@ void DoublyLinkedList::print_reverse() {
     } 
     std::cout << std::endl;
 }
-DLLNode* DoublyLinkedList::merge(DLLNode* first, DLLNode* second){
-    // Cases for if one or both of the sublists are empty
-    if(second == nullptr && first == nullptr){return nullptr;}
-    if(first == nullptr){return second;} 
-    if(second == nullptr){return first;}
-
-    if(first->value <= second->value){
-        first->next = merge(first->next, second);              //recursively call merge on the second value of the first sublist
-        if(first->next != nullptr){first->next->prev = first;}     // prev pointer fix
-        first->prev = nullptr;                                     // prev pointer fix
-        return first;
-
-    }else{
-        second->next = merge(first, second->next);          // recursively call merge but for the second value of the second sublist
-        if(second->next){ second->next->prev = nullptr;}          // prev pointer fix
-        second->prev = nullptr;                                   // prev pointer fix
-        return second;
+DLLNode* DoublyLinkedList::merge(DLLNode* first, DLLNode* second) {
+    // initial cases
+    if (first == nullptr){return second;}
+    if (second == nullptr){return first;}
+    // temp variables for new list
+    DLLNode* temp = new DLLNode;
+    DLLNode* temp_fixed;
+    // setting proper initial node value
+    if(first->value<= second->value) { 
+        temp_fixed = first;
+    }else if(first->value> second->value) {
+        temp_fixed = second;
     }
+    // iterative process inorder to compare and put the next value in proper position
+    while(first != nullptr && second != nullptr) {
+        if(first->value <= second->value){
+            temp->next = first;
+            first->prev = temp;
+            first = first->next;
 
+        }else{
+            temp->next = second;
+            second->prev = tail;
+            second = second->next;
+        }
+        temp = temp->next;
+    }
+        // last check for the larger list to be the final value
+        if(second == nullptr) {
+            temp->next = first;
+            first->prev = temp;
+        }else if(first == nullptr) {
+            temp->next = second;
+            second->prev = temp;
+        }
+    return temp_fixed;
 
-
-}
-DLLNode* DoublyLinkedList::seperate(DLLNode* head){
-        DLLNode* temp = head->next;  // seperate the first link from the linked list inorder to then be merged
-        head->next = nullptr;
-    if(temp!= nullptr) { temp->prev = nullptr; }
-        return temp;
 
 }
 DLLNode* DoublyLinkedList::merge_sort(DLLNode* head){
-
     if (head == nullptr || head->next == nullptr) { // base case for a single or empty list
         return head;
     }
-
-        DLLNode* second = seperate(head); // create a new sublist to seperate for merge sort
-
+    DLLNode* far_temp = head;
+    for(int i = 1; i < size()/2; i++){ // iterate through to half way to split for separation
+        far_temp = far_temp->next;
+    }
+        DLLNode* second = far_temp->next;
+        far_temp->next = nullptr;
         head = merge_sort(head);           // recursively seperate the first sublist
         second = merge_sort(second);       // recursively seperate the second sublist
 
@@ -254,7 +266,6 @@ DLLNode* DoublyLinkedList::merge_sort(DLLNode* head){
 DLLNode* DoublyLinkedList::merge_sort(){
     head = merge_sort(head);
     return head;
-
     
 }
 // Helper function to swap the values of two nodes
