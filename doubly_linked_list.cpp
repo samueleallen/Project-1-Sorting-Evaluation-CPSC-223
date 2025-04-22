@@ -227,7 +227,7 @@ DLLNode* DoublyLinkedList::merge(DLLNode* first, DLLNode* second) {
 
         }else{
             temp->next = second;
-            second->prev = tail;
+            second->prev = temp;
             second = second->next;
         }
         temp = temp->next;
