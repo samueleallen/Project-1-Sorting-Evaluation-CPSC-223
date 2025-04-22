@@ -248,15 +248,17 @@ DLLNode* DoublyLinkedList::merge_sort(DLLNode* head){
     if (head == nullptr || head->next == nullptr) { // base case for a single or empty list
         return head;
     }
+    DLLNode* close_temp = head;
     DLLNode* far_temp = head;
-    for(int i = 1; i < size()/2; i++){ // iterate through to half way to split for separation
-        far_temp = far_temp->next;
+
+    while (far_temp->next && far_temp->next->next) {
+        close_temp = close_temp->next;
+        far_temp = far_temp->next->next;
     }
-        DLLNode* second = far_temp->next;
-        far_temp->next = nullptr;
+        DLLNode* second = close_temp->next;
+        close_temp->next = nullptr;
         head = merge_sort(head);           // recursively seperate the first sublist
         second = merge_sort(second);       // recursively seperate the second sublist
-
         return merge(head, second);    // merge the sublists
     }
 
