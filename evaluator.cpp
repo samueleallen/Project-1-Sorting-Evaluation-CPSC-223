@@ -1,4 +1,4 @@
-#include "Evaluator.hpp"
+#include "evaluator.hpp"
 #include "doubly_linked_list.hpp"
 #include "vector_sorter.hpp"
 #include <fstream>
@@ -14,7 +14,7 @@ using std::chrono::duration_cast;
 using std::chrono::duration;
 using std::chrono::milliseconds;
 
-Evaluator::Evaluator() {}
+evaluator::evaluator() {}
 
 /*
  Ingests the contents of the file and stores it into test_cases 2D vector. 
@@ -22,7 +22,7 @@ Evaluator::Evaluator() {}
  Second row of test_cases holds integers of 5-digits
  Third row of test_cases holds integers of 6-digits
 */
-void Evaluator::ingest(const std::string& filename) {
+void evaluator::ingest(const std::string& filename) {
     /*
     As a reference: There are three blocks of 4 lines in the evaluation_cases.txt file where the first block is 100 four digit ints on each line, next block is 1000 four digit ints on each line, etc.
     In the announcement, it says 1000 ints, 10000 ints, and 100000 ints per line but that isn't right so don't worry when test_cases has rows of 400, 4000, and 40000 elements - Sam
@@ -72,7 +72,7 @@ void Evaluator::ingest(const std::string& filename) {
     file.close();
 }
 
-void Evaluator::quick_comparison() {
+void evaluator::quick_comparison() {
     if (test_cases.empty()) {
         std::cout << "Error: test cases vector is empty";
         return;
@@ -118,7 +118,7 @@ void Evaluator::quick_comparison() {
     return;
 }
 
-void Evaluator::insertion_comparison() {
+void evaluator::insertion_comparison() {
     /*
     Function to compare the results of insertion sort on a dll vs vector
     */
@@ -143,7 +143,7 @@ void Evaluator::insertion_comparison() {
 
         // Get times before and after insertion_sort call to measure how long it took
         auto dll_start = std::chrono::high_resolution_clock::now();
-        dll.insertion_sort(dll.get_head());
+        dll.insertion_sort();
         auto dll_end = std::chrono::high_resolution_clock::now();
 
         // Get number of ms as a double
@@ -167,7 +167,7 @@ void Evaluator::insertion_comparison() {
     return;
 }
 
-void Evaluator::merge_comparison() {
+void evaluator::merge_comparison() {
     /*
     Function to compare the results of merge sort on a dll vs vector
     */
@@ -216,7 +216,7 @@ void Evaluator::merge_comparison() {
     return;
 }
 
-void Evaluator::evaluate() {
+void evaluator::evaluate() {
     /*
     Function to pretty print a table of each of the sort results
     */

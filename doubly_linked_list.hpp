@@ -40,7 +40,7 @@ class DoublyLinkedList {
         DLLNode* merge(DLLNode* first, DLLNode* second);
         DLLNode* quick_sort();
         DLLNode* partition(DLLNode* head, DLLNode* tail);
-        DLLNode* insertion_sort(DLLNode* head);
+        DLLNode* insertion_sort();
         DLLNode* get_tail() { return tail; }
         DLLNode* get_head() { return head; }
 };

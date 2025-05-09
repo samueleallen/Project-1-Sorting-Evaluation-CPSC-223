@@ -1,9 +1,9 @@
 #include <iostream>
 #include <cassert>
-#include "Evaluator.hpp"
+#include "evaluator.hpp"
 
 bool test_quick_comparison() {
-    Evaluator evaluator;
+    evaluator evaluator;
     std::vector<std::vector<int>> my_test_case;
 
     // Fill 2D vector with integers for testing
@@ -24,7 +24,7 @@ bool test_quick_comparison() {
 }
 
 bool test_insertion_comparison() {
-    Evaluator evaluator;
+    evaluator evaluator;
     std::vector<std::vector<int>> my_test_case;
 
     // Fill 2D vector with integers for testing
@@ -45,7 +45,7 @@ bool test_insertion_comparison() {
 }
 
 bool test_merge_comparison() {
-    Evaluator evaluator;
+    evaluator evaluator;
     std::vector<std::vector<int>> my_test_case;
 
     // Fill 2D vector with integers for testing

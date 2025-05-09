@@ -1,9 +1,9 @@
 #include "vector_sorter.hpp"
-#include "Evaluator.hpp"
+#include "evaluator.hpp"
 #include "doubly_linked_list.hpp"
 
 int main() {
-    Evaluator evaluator;
+    evaluator evaluator;
     evaluator.ingest("evaluation_cases.txt");
     evaluator.quick_comparison();
     evaluator.insertion_comparison();
