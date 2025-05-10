@@ -110,13 +110,13 @@ bool test_insertion_sort_dll() {
 
     // List of size 0
     DLLNode* head1 = nullptr;
-    l1.insertion_sort(head1);
+    l1.insertion_sort();
     assert(is_sorted(l1.get_head()));
 
     // List of size 1
     l2.push_front(1);
     DLLNode* head2 = l2.get_head(); 
-    l2.insertion_sort(head2);
+    l2.insertion_sort();
     assert(is_sorted(l2.get_head()));
 
     // Already sorted list
@@ -126,7 +126,7 @@ bool test_insertion_sort_dll() {
     l3.push_front(2);
     l3.push_front(1);
     DLLNode* head3 = l3.get_head(); 
-    l3.insertion_sort(head3);
+    l3.insertion_sort();
     assert(is_sorted(l3.get_head()));
 
     //Unordered list
@@ -136,7 +136,7 @@ bool test_insertion_sort_dll() {
     l4.push_front(17);
     l4.push_front(11);
     DLLNode* head4 = l4.get_head(); 
-    l4.insertion_sort(head4);
+    l4.insertion_sort();
     assert(is_sorted(l4.get_head()));
 
     // List with duplicate numbers
@@ -146,7 +146,7 @@ bool test_insertion_sort_dll() {
     l5.push_front(11);
     l5.push_front(11);
     DLLNode* head5 = l5.get_head(); 
-    l5.insertion_sort(head5);
+    l5.insertion_sort();
     assert(is_sorted(l5.get_head()));
 
     return true;

@@ -326,11 +326,7 @@ DLLNode* DoublyLinkedList::quick_sort(DLLNode* head, DLLNode* tail) {
         if (pivot->next != nullptr && pivot != tail) {
             quick_sort(pivot->next, tail);
         }
-    }    // Ensure head pointer is correct
-    while (head != nullptr && head->prev != nullptr) {
-        head = head->prev;
-    }
-
+    } 
     return head;
 }
 
